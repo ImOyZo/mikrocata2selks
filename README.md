@@ -1,7 +1,7 @@
 <h1 align="center">Welcome to Mikrocata2SELKS 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-2.3.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/angolo40/mikrocata2selks" target="_blank">
+  <a href="https://github.com/ImOyZo/mikrocata2selks" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/github/license/angolo40/Mikrocata2SELKS" />
   </a>
 </p>
@@ -10,6 +10,7 @@
 ![Selks](Screenshot_20250228_142832.png)
 
 ## 📋 Introduction
+## This is a fork from [angolo40/Mikrocata2SELKS](https://github.com/angolo40/Mikrocata2SELKS). Please check original author github for more information.
 
 Mikrocata2SELKS is a streamlined solution for integrating Mikrotik devices with Suricata IDS/IPS for packet analysis.
 It automates the setup process and enables efficient network traffic monitoring and threat detection.
@@ -37,12 +38,13 @@ For a comprehensive step-by-step installation guide with detailed explanations, 
 1. Set up a fresh Debian 12 installation on a dedicated machine (server or VM).
 2. Log in as root.
 3. Install Git: `apt install git`.
-4. Clone this repository: `git clone https://github.com/angolo40/mikrocata2selks.git`.
-5. Edit `easyinstall.sh` with the path where to install SELKS and the number of Mikrotik devices to handle.
-6. Run `./easyinstall.sh`.
-7. Wait....
-8. Once finished, edit `/usr/local/bin/mikrocataTZSP0.py` with your Mikrotik and Telegram parameters, then reload the service with `systemctl restart mikrocataTZSP0.service`.
-9. Configure your Mikrotik devices.
+4. Clone this repository: `git clone https://github.com/ImOyZo/mikrocata2selks.git`.
+5. Edit `iplist.py` with your API Key.
+6. Edit `easyinstall.sh` with the path where to install SELKS and the number of Mikrotik devices to handle.
+7. Run `./easyinstall.sh`.
+8. Wait....
+9. Once finished, edit `/usr/local/bin/mikrocataTZSP0.py` with your Mikrotik and Telegram parameters, then reload the service with `systemctl restart mikrocataTZSP0.service`.
+10. Configure your Mikrotik devices.
 
 ## 📡 Mikrotik Setup
 
