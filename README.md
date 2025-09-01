@@ -77,7 +77,9 @@ For a comprehensive step-by-step installation guide with detailed explanations, 
    PORT = 8728    # Default port for non-SSL. Will use 8729 if USE_SSL is True
    ALLOW_SELF_SIGNED_CERTS = False  # Set to True only if using self-signed certificates
    ```
-4. Add Mikrocata user in Mikrotik:
+   For Self Signed Certificate, use certificate with key-size of 2048.
+   
+5. Add Mikrocata user in Mikrotik:
     ```sh
     /user/add name=mikrocata2selks password=xxxxxxxxxxxxx group=full (change password)
     ```
