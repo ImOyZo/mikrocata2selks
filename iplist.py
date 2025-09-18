@@ -7,7 +7,7 @@ import os
 # SID config can be seen here https://sidallocation.org/
 start_sid = 1000001
 api_key = 'YOUR_API_KEY'
-output_file = '/srv/custom_rules/abuseipdb_blacklist.rules'
+output_file = '/srv/SELKS/docker/containers-data/nginx/custom-rules/abuseipdb_blacklist.rules'
 
 
 def abuseipdb_blacklist2suricata():

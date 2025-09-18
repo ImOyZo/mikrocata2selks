@@ -12,11 +12,14 @@ INSTALL_SELKS=true
 
 HOW_MANY_MIKROTIK=1  #Min 1 Mikrotik
 
+#Edit cron job for fetching Blacklist IP, https://crontab.guru for references
+CRON_JOB="0 1 * * 0 /usr/local/bin/iplist.py >> /var/log/iplist.log 2>&1"
+
 ### END EDIT SETTINGS
 
 echo "--- Install required package ---"
 
-apt-get install ca-certificates curl wget unzip tcpdump gnupg lsb-release build-essential python3-pip python3-pyinotify python3-ujson python3-librouteros python3-requests git htop libpcap-dev -y
+apt-get install ca-certificates curl wget unzip tcpdump gnupg lsb-release build-essential python3-pip python3-yaml python3-pyinotify python3-ujson python3-librouteros python3-requests git htop libpcap-dev -y
 
 PATH_GIT_MIKROCATA=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 sed -i '/SELKS_CONTAINER_DATA_SURICATA_LOG=/c\SELKS_CONTAINER_DATA_SURICATA_LOG="'$PATH_SELKS'/docker/containers-data/suricata/logs/"' "$PATH_GIT_MIKROCATA/mikrocata.py"
@@ -99,8 +102,11 @@ then
         systemctl enable --now mikrocataTZSP$num.service
         num=$(( $num + 1 ))
     done
+        chmod +x $PATH_GIT_MIKROCATA/iplist.py
+        chmod +x $PATH_GIT_MIKROCATA/edit-yml.py
         cp $PATH_GIT_MIKROCATA/iplist.py /usr/local/bin/iplist.py
-        chmod +x /usr/local/bin/iplist.py
+        cp $PATH_GIT_MIKROCATA/edit-yml.py /usr/local/bin/edit-yml.py
+
 
 fi
 
@@ -121,13 +127,17 @@ then
     done
 
     ./easy-setup.sh --non-interactive $cmd2 --iA --restart-mode always --es-memory 6G
+    /usr/local/bin/edit-yml.py
+    mv $PATH_SELKS/docker/containers-data/nginx/conf.d/
     docker compose up -d
 
 fi
 
-CRON_JOB="0 1 * * 0 /usr/local/bin/iplist.py >> /var/log/iplist.log 2>&1"
 ( crontab -u root -l 2>/dev/null | grep -F "$CRON_JOB" ) || \
 ( crontab -u root -l 2>/dev/null; echo "$CRON_JOB" ) | crontab -u root -
+
+/usr/local/bin/iplist.py
+mv $PATH_GIT_MIKROCATA/nmap.rules $PATH_SELKS/docker/containers-data/nginx/custom-rules/
 
 echo "--- INSTALL COMPLETED ---"
 echo "--- "
